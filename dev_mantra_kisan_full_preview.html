@@ -1,0 +1,505 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;}
+  .dmk{font-family:'Sora',sans-serif;background:#07070F;color:#F0EEF8;overflow:hidden;width:100%;}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+
+  /* NAV */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:rgba(7,7,15,0.85);border-bottom:1px solid rgba(139,92,246,0.12);}
+  .nav-logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:700;}
+  .logo-leaf{font-size:20px;}
+  .nav-links{display:flex;gap:20px;font-size:13px;color:#9990BB;}
+  .nav-links span{cursor:pointer;transition:color .2s;}
+  .nav-links span:hover{color:#C4B5FD;}
+  .nav-cta{background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;border:none;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer;}
+
+  /* HERO */
+  .hero{padding:52px 28px 40px;position:relative;overflow:hidden;text-align:center;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(109,40,217,0.18) 0%,transparent 70%);}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(139,92,246,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,0.05) 1px,transparent 1px);background-size:48px 48px;}
+  .hero-inner{position:relative;z-index:1;}
+  .hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);padding:5px 14px;border-radius:100px;font-size:11px;color:#C4B5FD;font-weight:500;margin-bottom:20px;letter-spacing:.5px;}
+  .badge-dot{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:blink 2s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+  .hero-title{font-size:48px;font-weight:800;line-height:1.05;margin-bottom:10px;}
+  .grad{background:linear-gradient(135deg,#A78BFA,#7C3AED,#C4B5FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-sub{font-size:16px;color:#9990BB;margin-bottom:10px;}
+  .hero-desc{font-size:13px;color:#6B6285;max-width:480px;margin:0 auto 28px;line-height:1.7;}
+  .hero-btns{display:flex;justify-content:center;gap:12px;margin-bottom:28px;flex-wrap:wrap;}
+  .btn-p{background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;border:none;padding:12px 24px;border-radius:100px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;}
+  .btn-g{background:rgba(255,255,255,0.05);color:#C4B5FD;border:1px solid rgba(139,92,246,0.25);padding:12px 24px;border-radius:100px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;}
+  .hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;}
+  .hstat{text-align:center;}
+  .hstat-n{font-size:22px;font-weight:800;color:#C4B5FD;}
+  .hstat-l{font-size:11px;color:#6B6285;margin-top:2px;}
+
+  /* FEATURES */
+  .section{padding:44px 28px;}
+  .sec-hdr{text-align:center;margin-bottom:28px;}
+  .sec-tag{display:inline-block;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);color:#A78BFA;padding:4px 12px;border-radius:100px;font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;}
+  .sec-title{font-size:26px;font-weight:800;margin-bottom:8px;}
+  .sec-desc{color:#9990BB;font-size:13px;}
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .fcard{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:22px;transition:border-color .2s,transform .2s;cursor:default;}
+  .fcard:hover{border-color:rgba(139,92,246,0.3);transform:translateY(-3px);}
+  .fcard.star{border-color:rgba(139,92,246,0.35);background:rgba(139,92,246,0.07);}
+  .ficon{font-size:32px;margin-bottom:10px;}
+  .fcard h3{font-size:14px;font-weight:700;margin-bottom:6px;}
+  .fcard p{font-size:12px;color:#9990BB;line-height:1.6;margin-bottom:10px;}
+  .ftag{display:inline-block;background:rgba(139,92,246,0.12);color:#A78BFA;border:1px solid rgba(139,92,246,0.2);padding:3px 9px;border-radius:100px;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace;}
+
+  /* CHAT */
+  .chat-wrap{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;overflow:hidden;max-width:780px;margin:0 auto;}
+  .chat-tb{display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);}
+  .chat-av{font-size:22px;}
+  .chat-inf span{display:block;}
+  .chat-nm{font-size:13px;font-weight:600;}
+  .chat-st{font-size:11px;color:#9990BB;display:flex;align-items:center;gap:5px;}
+  .sdot{width:6px;height:6px;border-radius:50%;background:#22C55E;animation:blink 2s infinite;display:inline-block;}
+  .chat-body{padding:16px;display:flex;gap:12px;}
+  .chat-side{width:180px;flex-shrink:0;}
+  .chat-side h4{font-size:10px;color:#6B6285;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;font-weight:600;}
+  .qbtn{display:block;width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#9990BB;padding:7px 10px;border-radius:8px;font-size:11px;font-family:'Sora',sans-serif;text-align:left;cursor:pointer;margin-bottom:6px;transition:background .2s;}
+  .qbtn:hover{background:rgba(139,92,246,0.1);border-color:rgba(139,92,246,0.25);color:#C4B5FD;}
+  .chat-msgs{flex:1;}
+  .msg-ai,.msg-u{display:flex;gap:8px;margin-bottom:12px;}
+  .msg-u{flex-direction:row-reverse;}
+  .mav{font-size:20px;flex-shrink:0;}
+  .mbbl{padding:10px 13px;border-radius:12px;font-size:12px;line-height:1.6;}
+  .msg-ai .mbbl{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);border-bottom-left-radius:4px;}
+  .msg-u .mbbl{background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;border-bottom-right-radius:4px;}
+  .mbbl ul{padding-left:14px;margin:4px 0;}
+  .mbbl li{margin-bottom:2px;}
+  .mtime{font-size:10px;color:#6B6285;display:block;margin-top:4px;}
+  .chat-inp{padding:10px 14px;border-top:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);display:flex;gap:8px;align-items:center;}
+  .cinp{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:#F0EEF8;padding:8px 13px;border-radius:10px;font-size:12px;font-family:'Sora',sans-serif;}
+  .cinp::placeholder{color:#6B6285;}
+  .sbtn{background:linear-gradient(135deg,#7C3AED,#5B21B6);border:none;color:#fff;width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:14px;}
+
+  /* WEATHER */
+  .wbg{background:rgba(255,255,255,0.02);border-radius:16px;border:1px solid rgba(255,255,255,0.07);padding:20px;}
+  .wgrid{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:12px;margin-bottom:16px;}
+  .wcard{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px;}
+  .wmain{display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.2);}
+  .wbig{font-size:48px;margin-bottom:4px;}
+  .wtmp{font-size:40px;font-weight:800;}
+  .wdsc{color:#9990BB;font-size:12px;}
+  .wcico{font-size:26px;margin-bottom:6px;}
+  .wcl{font-size:10px;color:#6B6285;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+  .wcv{font-size:22px;font-weight:800;margin-bottom:6px;}
+  .wbar{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-bottom:8px;}
+  .wfill{height:100%;border-radius:2px;background:#7C3AED;}
+  .wfillb{height:100%;border-radius:2px;background:#3B82F6;}
+  .wadv{font-size:11px;color:#9990BB;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px;}
+  .frow{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;}
+  .fday{flex-shrink:0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:9px;padding:10px 14px;text-align:center;min-width:82px;}
+  .fdname{font-size:11px;color:#6B6285;margin-bottom:4px;}
+  .fdico{font-size:20px;margin-bottom:4px;}
+  .fdtmp{font-size:13px;font-weight:700;}
+  .fdrain{font-size:10px;color:#60A5FA;margin-top:3px;}
+
+  /* MARKET */
+  .mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .mcard{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px;transition:transform .2s;}
+  .mcard:hover{transform:translateY(-3px);}
+  .memi{font-size:30px;}
+  .minfo{flex:1;}
+  .mname{font-size:13px;font-weight:700;margin-bottom:2px;}
+  .mprc{font-size:19px;font-weight:800;color:#C4B5FD;}
+  .munit{font-size:10px;color:#6B6285;}
+  .mchg{font-size:12px;font-weight:600;padding:3px 9px;border-radius:100px;}
+  .cup{background:rgba(34,197,94,0.1);color:#22C55E;}
+  .cdn{background:rgba(239,68,68,0.1);color:#EF4444;}
+
+  /* STORIES */
+  .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .scard{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:22px;position:relative;}
+  .scard.sfeat{border-color:rgba(139,92,246,0.35);background:rgba(139,92,246,0.06);}
+  .squo{font-size:60px;color:#7C3AED;opacity:.4;position:absolute;top:6px;left:18px;font-family:Georgia,serif;line-height:1;}
+  .stxt{font-size:12px;color:#9990BB;line-height:1.7;margin-bottom:14px;padding-top:16px;}
+  .sfarm{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .fav{font-size:30px;}
+  .fnm{font-size:13px;font-weight:700;}
+  .floc,.fcrp{font-size:11px;color:#6B6285;}
+  .sstat{display:inline-block;background:rgba(139,92,246,0.12);color:#A78BFA;border:1px solid rgba(139,92,246,0.2);padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;}
+
+  /* COUNTERS */
+  .cnts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px;}
+  .cntc{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:20px;text-align:center;}
+  .cntv{font-size:28px;font-weight:800;color:#C4B5FD;}
+  .cntl{font-size:11px;color:#6B6285;margin-top:4px;}
+
+  /* DOWNLOAD */
+  .dlsec{background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:16px;padding:40px;display:flex;align-items:center;gap:40px;}
+  .dlcnt{flex:1;}
+  .dlcnt h2{font-size:28px;font-weight:800;margin:10px 0 10px;}
+  .dlcnt p{color:#9990BB;font-size:13px;margin-bottom:16px;}
+  .dlfeats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
+  .dfeat{font-size:12px;color:#9990BB;display:flex;align-items:center;gap:5px;}
+  .dlbtns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+  .sbtn2{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(139,92,246,0.25);color:#F0EEF8;padding:10px 16px;border-radius:10px;cursor:pointer;text-decoration:none;}
+  .sbtn2:hover{border-color:rgba(139,92,246,0.5);}
+  .sico{font-size:22px;}
+  .ssub{display:block;font-size:10px;color:#6B6285;}
+  .snm{display:block;font-size:14px;font-weight:700;}
+  .dlstar{font-size:11px;color:#6B6285;}
+  .qrbox{background:rgba(255,255,255,0.03);border:1px solid rgba(139,92,246,0.2);border-radius:14px;padding:24px;text-align:center;flex-shrink:0;width:160px;}
+  .qrsq{width:100px;height:100px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:8px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;}
+  .qrp{font-size:12px;font-weight:600;margin-bottom:3px;}
+  .qrs{font-size:10px;color:#6B6285;}
+
+  /* FOOTER */
+  .footer{background:#04040A;border-top:1px solid rgba(255,255,255,0.06);padding:32px 28px 16px;}
+  .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px;margin-bottom:24px;}
+  .flogo{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;margin-bottom:10px;}
+  .fbrand p{font-size:12px;color:#6B6285;line-height:1.6;margin-bottom:12px;}
+  .fsoc{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  .fsl{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);color:#9990BB;padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;}
+  .mind{font-size:11px;color:#6B6285;}
+  .flnk h4{font-size:11px;font-weight:700;color:#9990BB;letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;}
+  .flnk ul{list-style:none;}
+  .flnk li{margin-bottom:7px;}
+  .flnk a{color:#6B6285;text-decoration:none;font-size:12px;transition:color .2s;}
+  .flnk a:hover{color:#C4B5FD;}
+  .fbot{border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:11px;color:#6B6285;}
+  .fbot a{color:#A78BFA;text-decoration:none;}
+</style>
+
+<div class="dmk">
+  <h2 class="sr-only">Dev Mantra Kisan — AI Agriculture Platform for India. Full website preview including hero, features, chat, weather, market prices, stories, and download sections.</h2>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">
+      <span class="logo-leaf">🌾</span>
+      <span>Dev<span style="color:#A78BFA">Mantra</span> Kisan</span>
+    </div>
+    <div class="nav-links">
+      <span>Features</span><span>AI Chat</span><span>Weather</span><span>Market</span><span>Schemes</span>
+    </div>
+    <button class="nav-cta">Try AI Free</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Made in India 🇮🇳 · Powered by Dev Mantra
+      </div>
+      <h1 class="hero-title">
+        Dev Mantra<br/><span class="grad">Kisan</span>
+      </h1>
+      <p class="hero-sub">AI Powered Farming Companion for India</p>
+      <p class="hero-desc">From crop disease detection to live mandi prices — everything your farm needs, in your language, powered by AI.</p>
+      <div class="hero-btns">
+        <button class="btn-p">🤖 Try AI Assistant</button>
+        <button class="btn-g">✨ Explore Features</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-n">2.4M+</div><div class="hstat-l">Farmers Served</div></div>
+        <div class="hstat"><div class="hstat-n">98%</div><div class="hstat-l">AI Accuracy</div></div>
+        <div class="hstat"><div class="hstat-n">22</div><div class="hstat-l">Languages</div></div>
+        <div class="hstat"><div class="hstat-n">6000+</div><div class="hstat-l">Mandis Connected</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" style="padding-top:20px;">
+    <div class="sec-hdr">
+      <div class="sec-tag">What We Offer</div>
+      <h2 class="sec-title">Everything Your Farm Needs</h2>
+      <p class="sec-desc">Cutting-edge AI tools built for Indian farmers, available in 22+ regional languages.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="fcard">
+        <div class="ficon">🤖</div>
+        <h3>AI Farming Assistant</h3>
+        <p>24/7 intelligent crop advisor. Ask anything in Hindi, Bengali, Tamil or any Indian language.</p>
+        <span class="ftag">LLM Powered</span>
+      </div>
+      <div class="fcard">
+        <div class="ficon">🌤️</div>
+        <h3>Weather Forecast</h3>
+        <p>Hyperlocal 7-day forecasts with rain probability and farming activity recommendations.</p>
+        <span class="ftag">Live Data</span>
+      </div>
+      <div class="fcard star">
+        <div class="ficon">🔬</div>
+        <h3>Disease Detection</h3>
+        <p>Upload a photo of your crop. AI identifies diseases in seconds and suggests treatment.</p>
+        <span class="ftag">Computer Vision</span>
+      </div>
+      <div class="fcard">
+        <div class="ficon">📊</div>
+        <h3>Market Prices</h3>
+        <p>Real-time mandi prices from 6,000+ markets. Know when and where to sell for best price.</p>
+        <span class="ftag">6000+ Mandis</span>
+      </div>
+      <div class="fcard">
+        <div class="ficon">🏛️</div>
+        <h3>Government Schemes</h3>
+        <p>Discover PM-KISAN, crop insurance, KCC and 50+ benefits you're eligible for.</p>
+        <span class="ftag">50+ Schemes</span>
+      </div>
+      <div class="fcard">
+        <div class="ficon">🗣️</div>
+        <h3>Multilingual Support</h3>
+        <p>Speak in your native language. Hindi, Bengali, Telugu, Tamil, Marathi, Punjabi & more.</p>
+        <span class="ftag">22+ Languages</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAT -->
+  <section class="section">
+    <div class="sec-hdr">
+      <div class="sec-tag">AI Assistant</div>
+      <h2 class="sec-title">Chat with Your Kisan AI Mitra</h2>
+      <p class="sec-desc">Ask about crops, diseases, weather, or government schemes — in your language.</p>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-tb">
+        <div class="chat-av">🌾</div>
+        <div class="chat-inf">
+          <span class="chat-nm">Kisan AI Mitra</span>
+          <span class="chat-st"><span class="sdot"></span> Online · Powered by Dev Mantra</span>
+        </div>
+      </div>
+      <div class="chat-body">
+        <div class="chat-side">
+          <h4>Quick Questions</h4>
+          <button class="qbtn">🌱 June Planting</button>
+          <button class="qbtn">🌾 Disease Help</button>
+          <button class="qbtn">📈 Market Price</button>
+          <button class="qbtn">🏛️ PM-KISAN</button>
+          <button class="qbtn">🌧️ Rain Forecast</button>
+          <button class="qbtn">💊 Fertilizer</button>
+        </div>
+        <div class="chat-msgs">
+          <div class="msg-ai">
+            <div class="mav">🌾</div>
+            <div class="mbbl">
+              <p>नमस्ते किसान भाई! 🙏 I'm your AI Kisan Mitra.</p>
+              <p>Ask me about:</p>
+              <ul><li>🌱 Crop planting &amp; care</li><li>🔬 Disease &amp; treatment</li><li>📊 Mandi prices</li><li>🏛️ Government schemes</li></ul>
+              <span class="mtime">Just now</span>
+            </div>
+          </div>
+          <div class="msg-u">
+            <div class="mav">👤</div>
+            <div class="mbbl">My wheat has yellow spots — what disease is it?<span class="mtime" style="color:rgba(255,255,255,0.5);text-align:right">9:14 AM</span></div>
+          </div>
+          <div class="msg-ai">
+            <div class="mav">🌾</div>
+            <div class="mbbl">
+              <strong>Yellow Rust (Puccinia striiformis)</strong> detected.<br/>
+              Spray Propiconazole 25 EC @ 200ml/acre. Act within 48 hrs — spreads fast in cool, humid conditions. ✅
+              <span class="mtime">9:14 AM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-inp">
+        <input class="cinp" placeholder="Ask about your crop, weather, or schemes..." readonly />
+        <button class="sbtn">➤</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEATHER -->
+  <section class="section" style="padding-top:0;">
+    <div class="sec-hdr">
+      <div class="sec-tag">Live Weather</div>
+      <h2 class="sec-title">Farming Weather Dashboard</h2>
+      <p class="sec-desc">Real-time hyperlocal weather data to plan every farming activity.</p>
+    </div>
+    <div class="wbg">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:13px;color:#9990BB;">
+        <span>📍 Punjab, Ludhiana</span>
+        <span style="margin-left:auto;font-size:11px;color:#6B6285;">Updated 5 min ago</span>
+      </div>
+      <div class="wgrid">
+        <div class="wcard wmain">
+          <div class="wbig">🌤️</div>
+          <div class="wtmp">32°C</div>
+          <div class="wdsc" style="margin-bottom:4px;">Partly Cloudy</div>
+          <div class="wdsc" style="font-size:11px;">Feels like 35°C</div>
+          <div style="display:flex;gap:12px;margin-top:8px;font-size:12px;">
+            <span style="color:#60A5FA">↓ 24°C</span>
+            <span style="color:#F87171">↑ 36°C</span>
+          </div>
+        </div>
+        <div class="wcard">
+          <div class="wcico">💧</div>
+          <div class="wcl">Humidity</div>
+          <div class="wcv">68%</div>
+          <div class="wbar"><div class="wfill" style="width:68%"></div></div>
+          <div class="wadv">High — watch for fungal diseases</div>
+        </div>
+        <div class="wcard">
+          <div class="wcico">🌧️</div>
+          <div class="wcl">Rain Chance</div>
+          <div class="wcv" style="color:#60A5FA">42%</div>
+          <div class="wbar"><div class="wfillb" style="width:42%"></div></div>
+          <div class="wadv">Light rain expected tomorrow</div>
+        </div>
+        <div class="wcard">
+          <div class="wcico">💨</div>
+          <div class="wcl">Wind Speed</div>
+          <div class="wcv">14 km/h</div>
+          <div class="wcl" style="margin-bottom:0">NE Direction</div>
+          <div class="wadv">Good for pesticide spraying</div>
+        </div>
+        <div class="wcard">
+          <div class="wcico">🌡️</div>
+          <div class="wcl">Soil Temp</div>
+          <div class="wcv">28°C</div>
+          <div class="wcl" style="margin-bottom:0">At 10cm depth</div>
+          <div class="wadv">Ideal for wheat germination</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:14px;">
+        <div style="font-size:12px;color:#9990BB;margin-bottom:10px;font-weight:600;">7-Day Forecast</div>
+        <div class="frow">
+          <div class="fday"><div class="fdname">Mon</div><div class="fdico">🌤️</div><div class="fdtmp">34° / 24°</div><div class="fdrain">🌧 10%</div></div>
+          <div class="fday"><div class="fdname">Tue</div><div class="fdico">🌧️</div><div class="fdtmp">29° / 22°</div><div class="fdrain">🌧 70%</div></div>
+          <div class="fday"><div class="fdname">Wed</div><div class="fdico">⛈️</div><div class="fdtmp">27° / 21°</div><div class="fdrain">🌧 85%</div></div>
+          <div class="fday"><div class="fdname">Thu</div><div class="fdico">🌦️</div><div class="fdtmp">30° / 23°</div><div class="fdrain">🌧 40%</div></div>
+          <div class="fday"><div class="fdname">Fri</div><div class="fdico">🌤️</div><div class="fdtmp">33° / 24°</div><div class="fdrain">🌧 15%</div></div>
+          <div class="fday"><div class="fdname">Sat</div><div class="fdico">☀️</div><div class="fdtmp">36° / 25°</div><div class="fdrain">🌧 5%</div></div>
+          <div class="fday"><div class="fdname">Sun</div><div class="fdico">☀️</div><div class="fdtmp">37° / 26°</div><div class="fdrain">🌧 0%</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET -->
+  <section class="section" style="padding-top:0;">
+    <div class="sec-hdr">
+      <div class="sec-tag">Mandi Prices</div>
+      <h2 class="sec-title">Live Market Prices</h2>
+      <p class="sec-desc">Today's rates from 6,000+ mandis. Know when and where to sell.</p>
+    </div>
+    <div class="mgrid">
+      <div class="mcard"><div class="memi">🌾</div><div class="minfo"><div class="mname">Paddy</div><div class="mprc">₹2,150</div><div class="munit">per quintal</div></div><span class="mchg cup">↑ ₹45</span></div>
+      <div class="mcard"><div class="memi">🌾</div><div class="minfo"><div class="mname">Wheat</div><div class="mprc">₹2,185</div><div class="munit">per quintal</div></div><span class="mchg cdn">↓ ₹20</span></div>
+      <div class="mcard"><div class="memi">🌽</div><div class="minfo"><div class="mname">Maize</div><div class="mprc">₹1,890</div><div class="munit">per quintal</div></div><span class="mchg cup">↑ ₹30</span></div>
+      <div class="mcard"><div class="memi">🥔</div><div class="minfo"><div class="mname">Potato</div><div class="mprc">₹1,240</div><div class="munit">per quintal</div></div><span class="mchg cdn">↓ ₹60</span></div>
+      <div class="mcard"><div class="memi">🍅</div><div class="minfo"><div class="mname">Tomato</div><div class="mprc">₹2,400</div><div class="munit">per quintal</div></div><span class="mchg cup">↑ ₹200</span></div>
+      <div class="mcard"><div class="memi">🧅</div><div class="minfo"><div class="mname">Onion</div><div class="mprc">₹1,850</div><div class="munit">per quintal</div></div><span class="mchg cdn">↓ ₹40</span></div>
+    </div>
+    <div style="margin-top:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:9px 14px;font-size:11px;color:#6B6285;">
+      📢 Indicative prices. Check your local mandi for exact rates. Last updated: Today, 9:00 AM
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section class="section" style="padding-top:0;">
+    <div class="sec-hdr">
+      <div class="sec-tag">Success Stories</div>
+      <h2 class="sec-title">Farmers Who Changed Their Lives</h2>
+      <p class="sec-desc">Real farmers, real results — powered by Dev Mantra Kisan.</p>
+    </div>
+    <div class="sgrid">
+      <div class="scard">
+        <div class="squo">"</div>
+        <p class="stxt">AI Kisan Mitra told me exactly when to harvest. My income increased by 40% this season!</p>
+        <div class="sfarm"><div class="fav">👨‍🌾</div><div><div class="fnm">Ramesh Kumar</div><div class="floc">📍 Lucknow, UP</div><div class="fcrp">🌾 Wheat · 8 acres</div></div></div>
+        <span class="sstat">+40% Income</span>
+      </div>
+      <div class="scard sfeat">
+        <div class="squo">"</div>
+        <p class="stxt">Disease detection saved my entire tomato crop! I uploaded a photo at night — had the treatment plan by morning.</p>
+        <div class="sfarm"><div class="fav">👩‍🌾</div><div><div class="fnm">Sunita Devi</div><div class="floc">📍 Nashik, Maharashtra</div><div class="fcrp">🍅 Tomato · 5 acres</div></div></div>
+        <span class="sstat">Saved ₹1.2 Lakh</span>
+      </div>
+      <div class="scard">
+        <div class="squo">"</div>
+        <p class="stxt">Found out about PM-KISAN through this app. Got ₹6,000 back-credited in 2 weeks. Best app for farmers!</p>
+        <div class="sfarm"><div class="fav">👨‍🌾</div><div><div class="fnm">Gurpreet Singh</div><div class="floc">📍 Amritsar, Punjab</div><div class="fcrp">🌾 Rice · 12 acres</div></div></div>
+        <span class="sstat">₹6000 Claimed</span>
+      </div>
+    </div>
+    <div class="cnts">
+      <div class="cntc"><div class="cntv">2.4M+</div><div class="cntl">Farmers Helped</div></div>
+      <div class="cntc"><div class="cntv">18</div><div class="cntl">States Covered</div></div>
+      <div class="cntc"><div class="cntv">50K+</div><div class="cntl">Diseases Detected</div></div>
+      <div class="cntc"><div class="cntv">6000+</div><div class="cntl">Mandis Connected</div></div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section class="section" style="padding-top:0;padding-bottom:44px;">
+    <div class="dlsec">
+      <div class="dlcnt">
+        <div class="sec-tag">Download Now</div>
+        <h2>Take Dev Mantra Kisan Everywhere</h2>
+        <p>Works offline too. Available on Android and iOS in 22+ languages. Completely free.</p>
+        <div class="dlfeats">
+          <div class="dfeat">✅ Works Offline</div>
+          <div class="dfeat">✅ Voice Input in Hindi</div>
+          <div class="dfeat">✅ Free Forever</div>
+          <div class="dfeat">✅ No Login Required</div>
+        </div>
+        <div class="dlbtns">
+          <a class="sbtn2" href="#"><span class="sico">🤖</span><div><span class="ssub">Get it on</span><span class="snm">Google Play</span></div></a>
+          <a class="sbtn2" href="#"><span class="sico">🍎</span><div><span class="ssub">Download on the</span><span class="snm">App Store</span></div></a>
+        </div>
+        <div class="dlstar">⭐⭐⭐⭐⭐ 4.8/5 · 1.2M+ Downloads</div>
+      </div>
+      <div class="qrbox">
+        <div class="qrsq">
+          <svg viewBox="0 0 80 80" width="70" height="70">
+            <rect x="8" y="8" width="24" height="24" fill="none" stroke="#7C3AED" stroke-width="3"/>
+            <rect x="12" y="12" width="16" height="16" fill="#7C3AED" opacity=".5"/>
+            <rect x="48" y="8" width="24" height="24" fill="none" stroke="#7C3AED" stroke-width="3"/>
+            <rect x="52" y="12" width="16" height="16" fill="#7C3AED" opacity=".5"/>
+            <rect x="8" y="48" width="24" height="24" fill="none" stroke="#7C3AED" stroke-width="3"/>
+            <rect x="12" y="52" width="16" height="16" fill="#7C3AED" opacity=".5"/>
+            <rect x="40" y="40" width="6" height="6" fill="#7C3AED"/>
+            <rect x="50" y="40" width="6" height="6" fill="#7C3AED"/>
+            <rect x="60" y="40" width="12" height="6" fill="#7C3AED"/>
+            <rect x="40" y="50" width="6" height="6" fill="#7C3AED"/>
+            <rect x="50" y="50" width="12" height="6" fill="#7C3AED"/>
+            <rect x="66" y="50" width="6" height="6" fill="#7C3AED"/>
+            <rect x="40" y="60" width="6" height="12" fill="#7C3AED"/>
+            <rect x="50" y="60" width="6" height="6" fill="#7C3AED"/>
+            <rect x="60" y="60" width="12" height="6" fill="#7C3AED"/>
+            <rect x="60" y="66" width="6" height="6" fill="#7C3AED"/>
+          </svg>
+        </div>
+        <div class="qrp">Scan to Download</div>
+        <div class="qrs">Android &amp; iOS</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="fgrid">
+      <div class="fbrand">
+        <div class="flogo">🌾 Dev<span style="color:#A78BFA">Mantra</span> Kisan</div>
+        <p>AI Powered Farming Companion for every Indian farmer. Built with ❤️ in India.</p>
+        <div class="fsoc">
+          <span class="fsl">Twitter</span>
+          <span class="fsl">YouTube</span>
+          <span class="fsl">WhatsApp</span>
+          <span class="fsl">GitHub</span>
+        </div>
+        <div class="mind">🇮🇳 Made in India · Powered by Dev Mantra</div>
+      </div>
+      <div class="flnk"><h4>Product</h4><ul><li><a href="#">Features</a></li><li><a href="#">AI Assistant</a></li><li><a href="#">Weather</a></li><li><a href="#">Market Prices</a></li><li><a href="#">Schemes</a></li></ul></div>
+      <div class="flnk"><h4>Resources</h4><ul><li><a href="#">Crop Calendar</a></li><li><a href="#">Pest Library</a></li><li><a href="#">Soil Guide</a></li><li><a href="#">Blog</a></li></ul></div>
+      <div class="flnk"><h4>Company</h4><ul><li><a href="#">About Dev Mantra</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">GitHub</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2025 Dev Mantra Kisan. All rights reserved. Made in India 🇮🇳</span>
+      <span>Open Source on <a href="#">GitHub</a> · Deploy on <a href="#">Netlify</a></span>
+    </div>
+  </footer>
+</div>
